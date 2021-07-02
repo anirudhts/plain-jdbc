@@ -1,0 +1,5 @@
+fileignoreconfig:
+- filename: src/main/resources/application.yml
+  checksum: 866dcb45ce15c5b8983e266d9b5cbcba822017fec778840d66b53d08e7c99c39
+  ignore_detectors: []
+scopeconfig: []
