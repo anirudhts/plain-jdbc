@@ -71,6 +71,8 @@ public class CustomerRepository {
                 account.add(
                         new Account(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), customer));
             }
+            preparedStatement.close();
+            resultSet.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
