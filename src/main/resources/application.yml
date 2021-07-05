@@ -9,3 +9,5 @@ datasources:
     driverClassName: ${JDBC_DRIVER:oracle.jdbc.driver.OracleDriver}
     schema-generate: NONE
     dialect: ORACLE
+    max-pool-size: 10
+    max-idle-time: 5

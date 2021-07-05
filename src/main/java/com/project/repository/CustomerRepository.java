@@ -2,6 +2,10 @@ package com.project.repository;
 
 import com.project.models.Account;
 import com.project.models.Customer;
+import io.micronaut.runtime.event.annotation.EventListener;
+import io.micronaut.scheduling.annotation.Async;
+import io.micronaut.context.event.StartupEvent;
+import io.reactivex.internal.operators.completable.CompletableOnErrorComplete;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,10 +22,20 @@ public class CustomerRepository {
 
     @Inject
     private final DataSource dataSource;
+    Connection connection;
 
     public CustomerRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    @EventListener
+    @Async
+    public void loadConferenceData(final StartupEvent startupEvent) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        System.out.println("DataSource --- " + dataSource);
+        this.connection = connection;
+    }
+
 
     public void findCustomer() {
         try {
@@ -45,8 +59,8 @@ public class CustomerRepository {
     public List<Account> findAccountDetails(Long accountId) {
         List<Account> account = new ArrayList<>();
         try {
-            Connection connection = dataSource.getConnection();
-
+            Connection connection = this.connection;
+            System.out.println(connection);
             PreparedStatement preparedStatement =
                     connection.prepareStatement("select a.account_id, a.account_type, a.branch, c.customer_id, c.customer_name, c.phone_number from accounts a " +
                             "inner join customers c on c.customer_id = a.customer_id where account_id = ?");
