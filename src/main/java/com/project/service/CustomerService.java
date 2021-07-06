@@ -31,4 +31,9 @@ public class CustomerService {
       return customerRepository.getCustomerByName(name);
 
   }
+
+  public List<Account> getMultipleAccountDetails(Long accountId) {
+    return customerRepository.findByAccountIdInRange(accountId, accountId + 10);
+
+  }
 }
