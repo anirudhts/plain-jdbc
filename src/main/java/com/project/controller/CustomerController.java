@@ -34,6 +34,11 @@ public class CustomerController {
 
   }
 
+  @Get("/accounts/multiple/{accountId}")
+  public List<Account> getMultipleAccountDetails(@PathVariable Long accountId) {
+    return customerService.getMultipleAccountDetails(accountId);
+  }
+
   @Get("/searchByName")
   public List<Customer> getCustomerByName(@QueryValue String name) {
     return customerService.getCustomerByName(name);

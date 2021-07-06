@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Customer {
   private Long customerId;
-
   private String name;
-
   private String phoneNo;
+  private String city;
+  private String email;
+  private String address;
+
 }
