@@ -133,6 +133,7 @@ public class CustomerRepository {
                         new Account(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), customer));
 
             }
+            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
