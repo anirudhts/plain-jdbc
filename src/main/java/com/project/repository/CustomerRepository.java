@@ -1,3 +1,4 @@
+
 package com.project.repository;
 
 import com.project.models.Account;
@@ -48,7 +49,7 @@ public class CustomerRepository {
             List<Customer> customers = new ArrayList<>();
             while (resultSet.next()) {
                 customers.add(
-                        new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
+                        new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
             }
             System.out.println(customers);
         } catch (SQLException throwables) {
@@ -61,12 +62,12 @@ public class CustomerRepository {
         try {
             Connection connection = this.connection;
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("select a.account_id, a.account_type, a.branch, c.customer_id, c.customer_name, c.phone_number from accounts a " +
+                    connection.prepareStatement("select a.account_id, a.account_type, a.branch, a.branch_address, a.ifsc_code, a.micr_code, c.customer_id, c.customer_name, c.phone_number, c.city, c.email, c.address, c.address_line1, c.address_line2 from accounts a " +
                             "inner join customers c on c.customer_id = a.customer_id where account_id = ?");
             preparedStatement.setLong(1, accountId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Customer customer = new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6));
+                Customer customer = new Customer(resultSet.getLong(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14));
                 account.add(
                         new Account(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), customer));
             }
@@ -88,7 +89,7 @@ public class CustomerRepository {
             preparedStatement.setLong(1, customerId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            customer = new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6));
+            customer = new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8));
 
             System.out.println(customer);
         } catch (SQLException throwables) {
@@ -107,7 +108,7 @@ public class CustomerRepository {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                customer.add(new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
+                customer.add(new Customer(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
             }
             System.out.println(customer);
         } catch (SQLException throwables) {
@@ -121,14 +122,14 @@ public class CustomerRepository {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("select a.account_id, a.account_type, a.branch, a.branch_address, a.ifsc_code, a.micr_code, c.customer_id, c.customer_name, c.phone_number, c.city, c.address, c.email " +
+                    connection.prepareStatement("select a.account_id, a.account_type, a.branch, a.branch_address, a.ifsc_code, a.micr_code, c.customer_id, c.customer_name, c.phone_number, c.city, c.email, c.address, c.address_line1, c.address_line2, " +
                             "from accounts a " +
                             "inner join customers c on c.customer_id = a.customer_id where account_id >= ? and account_id <= ?");
             preparedStatement.setLong(1, start);
             preparedStatement.setLong(2, end);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Customer customer = new Customer(resultSet.getLong(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12));
+                Customer customer = new Customer(resultSet.getLong(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14));
                 account.add(
                         new Account(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), customer));
 

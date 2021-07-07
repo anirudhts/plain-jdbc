@@ -16,5 +16,7 @@ public class Customer {
   private String city;
   private String email;
   private String address;
+  private String addressLine1;
+  private String addressLine2;
 
 }
